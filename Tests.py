@@ -1,10 +1,10 @@
-from unittest import TestCase
+import unittest
 from Deck import Deck
 from Card import Card
 import random
 
 
-class Tests(TestCase):
+class Tests(unittest.TestCase):
     def setUp(self):
         random.seed(a=42)  # seed `random` with a constant to provide deterministic testing
         self.card = Card(suit=Card.Suits.SPADES, value=Card.Values.ACE)
@@ -73,8 +73,8 @@ class Tests(TestCase):
         self.assertEqual(len(shuffled.deck), len(set(shuffled.deck)))
 
     def test_deck_cut(self):
-        self.assertRaises(IndexError, self.deck.cut(-1))
-        self.assertRaises(IndexError, self.deck.cut(500))
+        self.assertRaises(IndexError, self.deck.cut, -1)
+        self.assertRaises(IndexError, self.deck.cut, 500)
 
         self.assertEqual(self.deck.deck[0], Card(Card.Suits.HEARTS, Card.Values.ACE))
         self.assertEqual(self.deck.deck[1], Card(Card.Suits.HEARTS, Card.Values.TWO))
@@ -152,3 +152,7 @@ class Tests(TestCase):
         self.assertEqual(self.deck.search(dealt_card), -1)
 
         self.assertEqual(self.deck.deck[-1], self.card)
+
+
+if __name__ == '__main__':
+    unittest.main()

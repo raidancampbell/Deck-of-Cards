@@ -32,7 +32,7 @@ class Deck:
     # The first card above the split becomes the bottom of the deck.
     def cut(self, split_point):
         if split_point < 0 or split_point >= len(self.deck):
-            return
+            raise IndexError
         self.deck = self.deck[split_point:] + self.deck[:split_point]
 
     # Retrieves the top card and removes it from the deck.
