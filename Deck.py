@@ -33,7 +33,7 @@ class Deck:
     def cut(self, split_point):
         if split_point < 0 or split_point >= len(self.deck):
             return
-        self.deck = self.deck[split_point:] + split_point[:split_point]
+        self.deck = self.deck[split_point:] + self.deck[:split_point]
 
     # Retrieves the top card and removes it from the deck.
     # throws index error if deck is empty
