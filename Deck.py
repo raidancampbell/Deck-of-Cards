@@ -11,13 +11,12 @@ class Deck:
         # A pinochle deck may be formed by combining two normal decks of cards and removing cards 2-8, for a total of 48 cards.
         # In addition, pinochle uses unconventional card ordering, namely (from lowest to highest):  9, Jack, Queen, King, 10, Ace.
         if is_pinochle:
-            ordered_values = list(Card.Values)
-            ordered_values.sort(key=Deck.cmp_to_key(Deck.new_order_comparison))
+            ordered_values = [x for x in list(Card.Values) if x.value not in range(2, 8 + 1)]
+            ordered_values.sort(key=Deck.cmp_to_key(Deck.pinochle_order_comparison))
             for suit in Card.Suits:
                 for value in ordered_values:
-                    if value.value not in range(2, 8 + 1):  # `range` is exclusive on the end value
-                        self.deck.append(Card(suit=suit, value=value))
-                        self.deck.append(Card(suit=suit, value=value))
+                    self.deck.append(Card(suit=suit, value=value))
+                    self.deck.append(Card(suit=suit, value=value))
 
         else:  # classic 52-card deck
             for suit in Card.Suits:
@@ -74,13 +73,9 @@ class Deck:
 
     # pinochle uses unconventional card ordering, namely (from lowest to highest):  9, Jack, Queen, King, 10, Ace.
     @staticmethod
-    def pinochle_order_comparison(card1, card2):
-        # sort by suits first
-        if card1.Suit.value != card2.Suit.value:
-            return card1.Suit.value - card2.Suit.value
-        else:
-            value_ordering = [Card.Values.NINE, Card.Values.JACK, Card.Values.QUEEN, Card.Values.KING, Card.Values.TEN, Card.Values.ACE]
-            return value_ordering.index(card1.Value) - value_ordering.index(card2.Value)
+    def pinochle_order_comparison(value1, value2):
+        value_ordering = [Card.Values.NINE, Card.Values.JACK, Card.Values.QUEEN, Card.Values.KING, Card.Values.TEN, Card.Values.ACE]
+        return value_ordering.index(value1) - value_ordering.index(value2)
 
     def __str__(self):
         for card in self.deck:
