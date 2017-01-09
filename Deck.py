@@ -78,8 +78,10 @@ class Deck:
         return value_ordering.index(value1) - value_ordering.index(value2)
 
     def __str__(self):
+        ret_str = ''
         for card in self.deck:
-            print(str(card))
+            ret_str += str(card) + '\n'
+        return ret_str
 
     # Convert a cmp= function into a key= function
     @staticmethod
