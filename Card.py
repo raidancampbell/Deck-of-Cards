@@ -51,3 +51,6 @@ class Card:
 
     def __str__(self):
         return self.Value.name.lower() + ' of ' + self.Suit.name.lower()
+
+    def __hash__(self):
+        return hash(self.Suit) ^ hash(self.Value)
